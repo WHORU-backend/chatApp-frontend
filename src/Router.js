@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Main from './Pages/Main';
+import Login from './Pages/LoginPage';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="" element={<Main />} />
+        <Route path="" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
