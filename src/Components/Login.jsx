@@ -11,9 +11,13 @@ const Login = () => {
           <LoginInfo placeholder="비밀번호" />
           <LoginBtn>로그인</LoginBtn>
           <FindInfo>
-            <FindInfoText>아이디 찾기 </FindInfoText>
-            <FindInfoText>| 비밀번호 찾기</FindInfoText>
+            <FindInfoText>아이디 찾기 </FindInfoText>|
+            <FindInfoText> 비밀번호 찾기</FindInfoText>
           </FindInfo>
+          <LocalSignUp>
+            <LocalSignUpBtn>회원가입</LocalSignUpBtn>
+          </LocalSignUp>
+          <SocialSignUp></SocialSignUp>
         </LoginForm>
       </Container>
     </Wrap>
@@ -84,7 +88,29 @@ const FindInfo = styled.div`
 `;
 
 const FindInfoText = styled.span`
-  /* width: 50%; */
+  cursor: pointer;
+  &:hover {
+    color: blue;
+  }
 `;
+
+const LocalSignUp = styled.div`
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 900;
+  color: black;
+`;
+
+const LocalSignUpBtn = styled.span`
+  border-bottom: 1px solid black;
+`;
+
+const SocialSignUp = styled.div`
+  display: flex;
+`;
+
+const NaverSignUpBtn = styled.div``;
+
+const KakaoSignUpBtn = styled.div``;
 
 export default Login;
