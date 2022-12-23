@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { KAKAO_AUTH_URL } from './\bOAtu';
 
 const Login = () => {
+  const kakaoLogin = () => {
+    window.location.href = KAKAO_AUTH_URL;
+  };
   return (
     <Wrap>
       <Container>
@@ -10,6 +14,7 @@ const Login = () => {
           <LoginInfo placeholder="아이디" />
           <LoginInfo placeholder="비밀번호" />
           <LoginBtn>로그인</LoginBtn>
+          <LoginEx onClick={kakaoLogin}>카카오로 바로 시작</LoginEx>
           <FindInfo>
             <FindInfoText>아이디 찾기 </FindInfoText>|
             <FindInfoText> 비밀번호 찾기</FindInfoText>
@@ -17,7 +22,7 @@ const Login = () => {
           <LocalSignUp>
             <LocalSignUpBtn>회원가입</LocalSignUpBtn>
           </LocalSignUp>
-          <SocialSignUp></SocialSignUp>
+          <SocialSignUp />
         </LoginForm>
       </Container>
     </Wrap>
@@ -70,6 +75,16 @@ const LoginInfo = styled.input`
 `;
 
 const LoginBtn = styled.button`
+  width: 70%;
+  height: 48px;
+  margin-top: 8px;
+  border: none;
+  background-color: #4e8df5;
+  color: white;
+  cursor: pointer;
+`;
+
+const LoginEx = styled.button`
   width: 70%;
   height: 48px;
   margin-top: 8px;
