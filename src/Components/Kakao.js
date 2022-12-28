@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { CLIENT_ID, REDIRECT_URI } from './\bOAtu';
 
 const Kakao = () => {
   const navigate = useNavigate();
+
+  const REACT_APP_KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
+  const REACT_APP_KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
   const params = new URL(window.location.href).searchParams;
   const KAKAO_CODE = params.get('code');
@@ -12,13 +14,13 @@ const Kakao = () => {
     fetch(`https://kauth.kakao.com/oauth/token`, {
       method: 'POST',
       headers: { 'Content-type': 'application/x-www-form-urlencoded;' },
-      body: `grant_type=authorization_code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
+      body: `grant_type=authorization_code&client_id=${REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${REACT_APP_KAKAO_REDIRECT_URI}&code=${KAKAO_CODE}`,
     })
       .then(res => res.json())
       .then(data => {
-        if (data.message === '로그인 성공하였습니다.') {
-          localStorage.setItem('Token', data.token);
-          localStorage.setItem('KaKaoToken', data.kakao_token);
+        if (data.message === 'SUCCESS') {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('oken', data.kakao_token);
           navigate('/');
         }
       });

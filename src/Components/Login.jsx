@@ -1,10 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { KAKAO_AUTH_URL } from './\bOAtu';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const goToSign = () => {
+    navigate('/');
+  };
+  const REACT_APP_KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
+  const REACT_APP_KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+  const REACT_APP_KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
+
   const kakaoLogin = () => {
-    window.location.href = KAKAO_AUTH_URL;
+    window.location.href = REACT_APP_KAKAO_AUTH_URL;
   };
   return (
     <Wrap>
@@ -14,13 +22,19 @@ const Login = () => {
           <LoginInfo placeholder="아이디" />
           <LoginInfo placeholder="비밀번호" />
           <LoginBtn>로그인</LoginBtn>
-          <LoginEx onClick={kakaoLogin}>카카오로 바로 시작</LoginEx>
+          <SocialLogin>
+            <KakaoSignUpBtn
+              src="/images/Login/kakao_login_medium_button.png"
+              alt="kakao_login"
+              onClick={kakaoLogin}
+            />
+          </SocialLogin>
           <FindInfo>
             <FindInfoText>아이디 찾기 </FindInfoText>|
             <FindInfoText> 비밀번호 찾기</FindInfoText>
           </FindInfo>
           <LocalSignUp>
-            <LocalSignUpBtn>회원가입</LocalSignUpBtn>
+            <LocalSignUpBtn onClick={goToSign}>회원가입</LocalSignUpBtn>
           </LocalSignUp>
           <SocialSignUp />
         </LoginForm>
@@ -28,7 +42,6 @@ const Login = () => {
     </Wrap>
   );
 };
-
 const Wrap = styled.div`
   display: flex;
   justify-content: center;
@@ -84,13 +97,16 @@ const LoginBtn = styled.button`
   cursor: pointer;
 `;
 
-const LoginEx = styled.button`
-  width: 70%;
-  height: 48px;
+const SocialLogin = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const KakaoSignUpBtn = styled.img`
+  height: 35px;
   margin-top: 8px;
-  border: none;
-  background-color: #4e8df5;
-  color: white;
+  margin-right: 10px;
   cursor: pointer;
 `;
 
@@ -104,8 +120,9 @@ const FindInfo = styled.div`
 
 const FindInfoText = styled.span`
   cursor: pointer;
+  transition: color 0.2s ease 0s;
   &:hover {
-    color: blue;
+    color: #4e8df5;
   }
 `;
 
@@ -117,15 +134,12 @@ const LocalSignUp = styled.div`
 `;
 
 const LocalSignUpBtn = styled.span`
+  cursor: pointer;
   border-bottom: 1px solid black;
 `;
 
 const SocialSignUp = styled.div`
   display: flex;
 `;
-
-const NaverSignUpBtn = styled.div``;
-
-const KakaoSignUpBtn = styled.div``;
 
 export default Login;
