@@ -1,11 +1,11 @@
 import React from 'react';
-import Components from '../Components/Login';
+import Login from '../Components/Login';
 import styled from 'styled-components';
 
 const LoginPage = () => {
   return (
     <Container>
-      <Components />
+      <Login />
     </Container>
   );
 };
