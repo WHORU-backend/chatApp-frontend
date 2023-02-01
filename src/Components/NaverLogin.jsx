@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 const NaverLogin = ({ setGetToken, setUserInfo }) => {
   const { naver } = window;
@@ -9,12 +9,22 @@ const NaverLogin = ({ setGetToken, setUserInfo }) => {
     const naverLogin = new naver.LoginWithNaverId({
       clientId: NAVER_CLIENT_ID,
       callbackUrl: NAVER_CALLBACK_URL,
-      isPopup: true,
-      loginButton: { color: 'white', type: 3, height: 40 },
+      isPopup: false,
+      loginButton: { color: 'white', type: 3, height: 37 },
       callbackHandle: true,
     });
     naverLogin.init();
-    // console.log(naverLogin);
+    console.log(naverLogin.user);
+    naverLogin.getLoginStatus(async function (status) {
+      if (status) {
+        // 아래처럼 선택하여 추출이 가능하고,
+        const userid = naverLogin.user.getEmail();
+        const username = naverLogin.user.getName();
+        // 정보 전체를 아래처럼 state 에 저장하여 추출하여 사용가능하다.
+        // setUserInfo(naverLogin.user);
+      }
+    });
+    // 요기!
   };
 
   const userAccessToken = () => {
@@ -24,8 +34,6 @@ const NaverLogin = ({ setGetToken, setUserInfo }) => {
   const getToken = () => {
     const token = window.location.href.split('=')[1].split('&')[0];
     // console.log, alert 창을 통해 토큰이 잘 추출 되는지 확인하자!
-    alert(token);
-
     localStorage.setItem('abc', token);
     setGetToken(token);
   };

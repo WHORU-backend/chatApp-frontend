@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Modal from 'react-modal';
 import NaverLogin from './NaverLogin';
-import { naverLoginAPI, localLoginAPI, localSignUpAPI } from '../Api/Api';
+import { localLoginAPI, localSignUpAPI } from '../Api/Api';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [ModalOpen, setModalOpen] = useState(false);
   const [loginData, setLoginData] = useState({
     email: '',
@@ -25,9 +27,8 @@ const Login = () => {
   };
 
   const onLogin = () => {
-    console.log(loginData);
     localLoginAPI(loginData).then(res => {
-      console.log(res);
+      res.status === 200 && localStorage.setItem('jwt', res.data.access_token);
     });
   };
 
@@ -35,6 +36,13 @@ const Login = () => {
     localSignUpAPI(signUpData).then(res => {
       console.log(res);
     });
+  };
+
+  const KakaoLogin = () => {
+    const REDIRECT_URI = `${process.env.REACT_APP_KAKAO_REDIRECT_URI}`;
+    const CLIENT_ID = `${process.env.REACT_APP_KAKAO_CLIENT_ID}`;
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    window.location.href = KAKAO_AUTH_URL;
   };
 
   return (
@@ -56,12 +64,12 @@ const Login = () => {
           <LoginBtn onClick={onLogin}>로그인</LoginBtn>
           <SocialSignUp>
             <NaverLogin />
-            <div>dsad</div>
+            <KakaoSignUpBtn
+              src="/images/Login/kakao_login_medium_button.png"
+              alt="kakao_login"
+              onClick={() => KakaoLogin()}
+            />
           </SocialSignUp>
-          {/* <FindInfo>
-            <FindInfoText>아이디 찾기 </FindInfoText>|
-            <FindInfoText> 비밀번호 찾기</FindInfoText>
-          </FindInfo> */}
           <LocalSignUp>
             <LocalSignUpBtn
               onClick={() => {
@@ -151,22 +159,6 @@ const LoginBtn = styled.button`
   cursor: pointer;
 `;
 
-const FindInfo = styled.div`
-  width: 70%;
-  margin: 0 auto;
-  margin-top: 8px;
-  color: white;
-  font-size: 0.5vw;
-`;
-
-const FindInfoText = styled.span`
-  cursor: pointer;
-  &:hover {
-    color: blue;
-    opacity: 0.5;
-  }
-`;
-
 const LocalSignUp = styled.div`
   margin-top: 10px;
   font-size: 15px;
@@ -184,6 +176,11 @@ const SocialSignUp = styled.div`
   justify-content: center;
   gap: 10px;
   margin-top: 5px;
+`;
+
+const KakaoSignUpBtn = styled.img`
+  height: 37px;
+  cursor: pointer;
 `;
 
 const ModalStyle = {
