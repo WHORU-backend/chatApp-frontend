@@ -6,9 +6,13 @@ const ChatMain = () => {
     <Wrap>
       <Headers>
         <MainTitle>Who Are You</MainTitle>
-        <SubTitle>익명채팅을 시작해보세요</SubTitle>
+        <LogoutBtn>로그아웃</LogoutBtn>
       </Headers>
-      <LogoutBtn>로그아웃</LogoutBtn>
+      <SubTitle>
+        <SecondHeader>익명채팅을 시작해보세요</SecondHeader>
+        <GuideBtn>How To?</GuideBtn>
+      </SubTitle>
+
       <UsrProfile>
         <Usr1 src="/images/ChatMain/IMG_2706.JPG" alt="usr1_profile" />
         <Usr1 src="/images/ChatMain/IMG_2706.JPG" alt="usr1_profile" />
@@ -39,7 +43,8 @@ const Wrap = styled.div`
 `;
 
 const Headers = styled.div`
-  padding-left: 50px;
+  display: flex;
+  justify-content: space-around;
   padding-top: 70px;
 `;
 
@@ -52,16 +57,35 @@ const MainTitle = styled.div`
 `;
 
 const SubTitle = styled.div`
-  position: absolute;
-  width: 208px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 20px;
+`;
+const SecondHeader = styled.div`
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
-  text-align: center;
   color: #454545;
-  padding-top: 21px;
+  text-align: center;
+  padding-right: 45px;
+`;
+
+const GuideBtn = styled.button`
+  width: 130px;
+  height: 40px;
+  background: #3e88b6;
+  border-radius: 50px;
+  border: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ffffff;
+  cursor: pointer;
 `;
 
 const LogoutBtn = styled.button`
@@ -77,8 +101,6 @@ const LogoutBtn = styled.button`
   line-height: 24px;
   color: #ffffff;
   cursor: pointer;
-  margin-left: 480px;
-  margin-right: 50px;
 `;
 
 const UsrProfile = styled.div`
